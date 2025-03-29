@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr4i22llk8o67"]
+
+[ext_resource type="Script" uid="uid://don2us3qmc5j6" path="res://Scripts/menu.gd" id="1_1rerr"]
+[ext_resource type="Texture2D" uid="uid://dcjl1mq0d4pcd" path="res://Pong/Preview.png" id="2_xhh6f"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cayip"]
+texture = ExtResource("2_xhh6f")
+modulate_color = Color(0.617455, 0.617455, 0.617455, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rerr"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.294118)
+shadow_size = 5
+shadow_offset = Vector2(0, 3.41)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1rerr")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 316.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_cayip")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = -160.0
+offset_top = -67.0
+offset_right = 160.0
+offset_bottom = 67.0
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.716296, 0.716296, 0.716296, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_1rerr")
+text = "Play"
+
+[node name="Credits" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.716296, 0.716296, 0.716296, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_1rerr")
+text = "Credits"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.716296, 0.716296, 0.716296, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_1rerr")
+text = "Quit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = -236.0
+offset_right = 163.0
+offset_bottom = -84.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 111
+text = "PONG"
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

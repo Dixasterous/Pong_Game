@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://clrg17q5nn8lk"]
+
+[ext_resource type="Script" uid="uid://cyp0lkg6ojmki" path="res://Scripts/game.gd" id="1_3dryh"]
+[ext_resource type="Texture2D" uid="uid://d0gnj6hd7mtf1" path="res://Pong/arts/Board.png" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://bw8htknwtom80" path="res://Scenes/player_1.tscn" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://ca80cb261regu" path="res://Scenes/ball.tscn" id="2_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://bj0cx6lyk6thf" path="res://Scenes/player_2.tscn" id="5_i6g32"]
+[ext_resource type="Script" uid="uid://clbu3aetjbhcl" path="res://Scripts/score_left.gd" id="5_wowpa"]
+[ext_resource type="Script" uid="uid://babks531h6ttk" path="res://Scripts/score_right.gd" id="8_v158k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wrm1d"]
+distance = -647.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3dryh"]
+normal = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6g32"]
+size = Vector2(136, 648)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l0tm"]
+size = Vector2(136, 648)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_3dryh")
+
+[node name="BackRound" type="TextureRect" parent="."]
+offset_right = 1147.0
+offset_bottom = 650.0
+texture = ExtResource("1_ebmjs")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScorePlayer1" type="Label" parent="."]
+offset_left = 840.0
+offset_top = 23.0
+offset_right = 880.0
+offset_bottom = 46.0
+
+[node name="ScorePlayer2" type="Label" parent="."]
+offset_left = 296.0
+offset_top = 23.0
+offset_right = 336.0
+offset_bottom = 46.0
+
+[node name="Ball" parent="." instance=ExtResource("2_wrm1d")]
+position = Vector2(577, 325)
+
+[node name="Player1" parent="." instance=ExtResource("2_qxrlw")]
+position = Vector2(1135, 324)
+
+[node name="Player2" parent="." instance=ExtResource("5_i6g32")]
+position = Vector2(15, 325)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576, 0)
+shape = SubResource("WorldBoundaryShape2D_wrm1d")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576, 0)
+shape = SubResource("WorldBoundaryShape2D_3dryh")
+
+[node name="Score" type="Node2D" parent="."]
+
+[node name="ScoreLeft" type="Node2D" parent="Score"]
+
+[node name="ScoreLeftArea" type="Area2D" parent="Score/ScoreLeft"]
+position = Vector2(-16, 325)
+script = ExtResource("5_wowpa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Score/ScoreLeft/ScoreLeftArea"]
+position = Vector2(-60, -1)
+shape = SubResource("RectangleShape2D_i6g32")
+
+[node name="ScoreRight" type="Node2D" parent="Score"]
+
+[node name="ScoreRightArea" type="Area2D" parent="Score/ScoreRight"]
+script = ExtResource("8_v158k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Score/ScoreRight/ScoreRightArea"]
+position = Vector2(1224, 324)
+shape = SubResource("RectangleShape2D_1l0tm")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="ball_scored_left" from="Score/ScoreLeft/ScoreLeftArea" to="." method="_on_score_left_area_ball_scored_left"]
+[connection signal="body_entered" from="Score/ScoreLeft/ScoreLeftArea" to="Score/ScoreLeft/ScoreLeftArea" method="_on_body_entered"]
+[connection signal="ball_scored_right" from="Score/ScoreRight/ScoreRightArea" to="." method="_on_score_right_area_ball_scored_right"]
+[connection signal="body_entered" from="Score/ScoreRight/ScoreRightArea" to="Score/ScoreRight/ScoreRightArea" method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
