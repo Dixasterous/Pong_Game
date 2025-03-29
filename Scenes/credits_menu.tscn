@@ -51,6 +51,7 @@ Assets-
 https://myebstudios.itch.io/simple-ping-pong-assets
 
 GitHub - 
+https://github.com/Dixasterous/Pong_Game
 "
 
 [node name="Back" type="Button" parent="VBoxContainer"]
