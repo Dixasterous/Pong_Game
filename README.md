@@ -18,4 +18,10 @@ A simple implementation of the classic Pong game in Godot Engine.
 
 - [Godot Engine](https://godotengine.org/download) 3.x or higher
 
+## Assets
 
+- [Pong Assets](https://myebstudios.itch.io/simple-ping-pong-assets)
+
+## Itch.io page
+
+- [Pong Game](https://dixasterous.itch.io/pong)
